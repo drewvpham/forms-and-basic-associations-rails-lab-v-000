@@ -8,8 +8,14 @@ class Song < ActiveRecord::Base
     self.genre=genre
   end
 
+
+
   def genre_name
-    self.genre.name
+    self.try(:genre).try(:name)
+  end
+
+  def artist_name
+    self.try(:artist).try(:name)
   end
 
   def artist_name=(name)
@@ -17,7 +23,17 @@ class Song < ActiveRecord::Base
     self.artist=artist
   end
 
-  def artist_name
-    self.artist.name
+
+
+  def note_contents=(notes)
+      notes.each do |content|
+        if content.strip != ''
+          self.notes.build(content: content)
+        end
+      end
+    end
+
+    def note_contents
+      self.notes.map(&:content)
+    end
   end
-end
