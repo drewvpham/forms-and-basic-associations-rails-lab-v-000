@@ -1,3 +1,6 @@
 <h1>Songs#show</h1>
 
 Title: <%= @song.title %>
+Notes: <%@song.note_contents.each do |x|%>
+          <%=x%>
+          <%end%>
